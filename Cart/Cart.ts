@@ -16,4 +16,8 @@ class Cart {
         return this.products; 
     }
 
+    showAllProduct() {
+        return this.products.map(el =>  el.name + " (" + el.qty + ")")
+    }
+
 }
