@@ -1,4 +1,7 @@
-
+interface Product {
+    name: string;
+    qty: number;
+}
 
 class Cart {
     /** define properties for cart */
