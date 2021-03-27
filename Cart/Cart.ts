@@ -30,3 +30,13 @@ class Cart implements Product{
     }
 
 }
+
+const cart = new Cart()
+
+cart.addNewProduct('kursi tamu', 4)
+cart.addNewProduct('Meja Makan', 4)
+cart.addNewProduct('Meja Belajar', 4)
+
+cart.deleteProduct('kursi tamu')
+
+console.log(cart.showAllProduct())
