@@ -1,37 +1,35 @@
-interface Product {
+export interface Product {
     name: string;
     qty: number;
 }
 
-class Cart implements Product{
-    /** define properties for cart */
+export default class Cart implements Product {
+
     name: string;
     qty: number; 
     products: any[];
-
+   
     constructor () {
         this.products = []
-
     }
 
-    addNewProduct(name:string, qty:number): Product[] {
+    public addNewProduct(name:string, qty:number): Product[] {
         this.products.push({name, qty});
         return this.products; 
     }
 
-    showAllProduct() {
+    public showAllProduct() {
         return this.products.map(el =>  el.name + " (" + el.qty + ")")
     }
 
-    deleteProduct(name: string): Product[] {
-        const errMsg = 'Failed to remove product !';
+    public deleteProduct(name: string) {
+        const errMsg = 'Failed to delete product ';
         this.products.map(el => el.name === name ? this.products.splice(el, 1) : errMsg )
-        return this.products
     }
-
+   
 }
 
-const cart = new Cart()
+export const cart = new Cart()
 
 cart.addNewProduct('kursi tamu', 4)
 cart.addNewProduct('Meja Makan', 4)
