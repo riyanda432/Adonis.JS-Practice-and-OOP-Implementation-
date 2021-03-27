@@ -11,4 +11,9 @@ class Cart {
 
     }
 
+    addNewProduct(name:string, qty:number) {
+        this.products.push({name, qty});
+        return this.products; 
+    }
+
 }
