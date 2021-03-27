@@ -5,5 +5,10 @@ class Cart {
     name: string;
     qty: number; 
     products: any[];
-    
+
+    constructor () {
+        this.products = []
+
+    }
+
 }
