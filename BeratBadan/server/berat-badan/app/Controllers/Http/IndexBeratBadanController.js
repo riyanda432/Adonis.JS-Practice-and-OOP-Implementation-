@@ -7,26 +7,42 @@
 
 
 class IndexBeratBadanController {
-  /**
-   * Show a list of all indexberatbadans.
-   * GET indexberatbadans
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  
+  async index ({ request, response }) {
 
-  async index ({ request, response, view }) {
+    const limit = parseInt(request._qs.limit) 
+    const skip  = parseInt(request._qs.skip)
+    const count = await Database
+                    .from('index_berat_badans')
+                    .count()
 
-    const data = await IndexBerat.all();
+    const data = await Database
+                  .table('index_berat_badans')
+                  .offset(skip)
+                  .limit(limit);
+
+    const avgMax = await Database.from('index_berat_badans').avg('max')       
+    const avgMin = await Database.from('index_berat_badans').avg('min')  
+    const averagePerbedaan = await Database.from('index_berat_badans').avg('perbedaan')       
+
+
     const meta = {
-      message: 'Successfully get all data'
+      message: 'Successfully get all data',
+      total: parseInt(count[0].count),
+      limit: limit,
+      skip: skip
+    }
+
+    const average = {
+      averageMax : Math.ceil(avgMax[0].avg),
+      averageMin: parseInt(avgMin[0].avg),
+      averagePerbedaan: parseInt(averagePerbedaan[0].avg)
     }
 
     const res = {
       data: data,
-      meta: meta
+      meta: meta,
+      average
     }
 
     return res;
@@ -34,6 +50,7 @@ class IndexBeratBadanController {
 
   async create ({ request, response }) {
     try {
+
       const min = request.body.min
       const max = request.body.max
 
