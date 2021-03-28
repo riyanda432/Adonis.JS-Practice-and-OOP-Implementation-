@@ -1,31 +1,32 @@
 'use strict'
 
-
  const IndexBerat = use('App/Models/IndexBeratBadan')
- const Database = use('Database')
- const Logger = use('Logger')
-
+ const Database   = use('Database')
+ const Logger     = use('Logger')
 
 class IndexBeratBadanController {
   
   async index ({ request, response }) {
+    /** menampung data untuk limit dan skip */
+    const limit = request._qs.limit ? parseInt(request._qs.limit): 5  
+    const skip  = request._qs.skip  ? parseInt(request._qs.skip) : 0
 
-    const limit = parseInt(request._qs.limit) 
-    const skip  = parseInt(request._qs.skip)
     const count = await Database
                     .from('index_berat_badans')
                     .count()
 
     const data = await Database
                   .table('index_berat_badans')
+                  .orderBy('created_at', 'desc')
                   .offset(skip)
                   .limit(limit);
 
+    /** Menghitung data average untuk setiap column */
     const avgMax = await Database.from('index_berat_badans').avg('max')       
     const avgMin = await Database.from('index_berat_badans').avg('min')  
     const averagePerbedaan = await Database.from('index_berat_badans').avg('perbedaan')       
 
-
+    /** meta data untuk informasi sukses dan pagination */
     const meta = {
       message: 'Successfully get all data',
       total: parseInt(count[0].count),
@@ -91,7 +92,7 @@ class IndexBeratBadanController {
       .where('id', id)
       .update(request.body)
     
-    const res = affectedRows === 1 ?  
+    const res = affectedRows === 1 ?
       {
         message: "Successfully Edit Data",
         data: request.body
