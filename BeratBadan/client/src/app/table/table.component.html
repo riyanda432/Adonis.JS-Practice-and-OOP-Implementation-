@@ -43,6 +43,11 @@
             Delete
           </button>
           &nbsp;
+          <button class="seeDetailButton" (click)="detail(content2, el.id)">
+            Detail
+          </button>
+          &nbsp;
+
         </tr>
 
         <ng-template #content let-modal>
@@ -75,7 +80,26 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" (click)="save(this.max,this.min)">Save</button>
           </div>
-        </ng-template>        
+        </ng-template> 
+        
+        <ng-template #content2 let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Detail Index Berat Badan</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <h3>tanggal: {{detailsTemp[0]['created_at']}}</h3>
+            <h3>max: {{detailsTemp[0]['max']}}</h3>
+            <h3>min:{{detailsTemp[0]['min']}}</h3>
+            <h3>perbedaan:{{detailsTemp[0]['perbedaan']}}</h3>
+           
+          </div>
+          <div class="modal-footer">
+          </div>
+        </ng-template> 
       </tbody>
     </table>
 

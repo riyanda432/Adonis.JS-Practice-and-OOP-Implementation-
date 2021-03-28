@@ -89,7 +89,7 @@ class IndexBeratBadanController {
     const min = request.body.min
     const max = request.body.max
     request.body.perbedaan = max - min
-    
+
     const affectedRows = await Database
       .table('index_berat_badans')
       .where('id', id)

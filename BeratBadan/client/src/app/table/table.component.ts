@@ -24,6 +24,8 @@ export class TableComponent implements OnInit {
   updateStatus:boolean =false
   average:any =[]
   average2:any =[]
+  details2:any = []
+  detailsTemp:any = []
 
 
  
@@ -49,7 +51,7 @@ export class TableComponent implements OnInit {
 
 
   
-  constructor( private HttpClient:HttpClient, private averageTemp:IndexBerat, private IndexBeratTemp:IndexBerat, private fb: FormBuilder,private modalService: NgbModal) {
+  constructor( private HttpClient:HttpClient, private details:IndexBerat, private averageTemp:IndexBerat, private IndexBeratTemp:IndexBerat, private fb: FormBuilder,private modalService: NgbModal) {
    
     this.addForm = this.fb.group({
       items: [null, Validators.required],
@@ -87,11 +89,25 @@ export class TableComponent implements OnInit {
       }
     })
    }
+
    open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  detail(content, id) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+    this.details2 = this.details.fetchDetail(id).subscribe(data=>{
+      this.detailsTemp = data; 
+      console.log("this.detailsTemp",this.detailsTemp)
     });
   }
 
