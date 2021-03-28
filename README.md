@@ -53,6 +53,7 @@ adonis migration:run
 npm run start
 maka akan berjalan di http://127.0.0.1:3333
 ```
+Untuk API Documentasi bisa dilihat di [WIKI](https://github.com/riyanda432/SircloTest/wiki/API-Documentation).
 
 #### Pada sisi client side menggunakan framework angular 
 ###### Cara menjalankan servernya
