@@ -8,7 +8,7 @@ class IndexBeratBadanController {
   
   async index ({ request, response }) {
     /** menampung data untuk limit dan skip */
-    const limit = request._qs.limit ? parseInt(request._qs.limit): 5  
+    const limit = request._qs.limit ? parseInt(request._qs.limit): 15  
     const skip  = request._qs.skip  ? parseInt(request._qs.skip) : 0
 
     const count = await Database
