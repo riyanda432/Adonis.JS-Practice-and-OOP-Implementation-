@@ -1,0 +1,92 @@
+
+<button class="addButton" (click)="open(content)"> ADD</button>
+<div class="tableContainer">
+  <mat-card>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">tanggal</th>
+          <th scope="col">max</th>
+          <th scope="col">min</th>
+          <th scope="col">perbedaan</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let el of IndexBerat2; ">
+          <td>{{ el.created_at }}</td>
+          <td *ngIf="el.id === EditRowId">
+            <input type="text" [(ngModel)]="el.max" />
+          </td> 
+          <td *ngIf="el.id !== EditRowId" (click)="Edit(el.id)">
+            {{ el.max }}
+          </td>
+
+          <td *ngIf="el.id === EditRowId">
+            <input type="text" [(ngModel)]="el.min" />
+          </td>
+          <td *ngIf="el.id !== EditRowId" (click)="Edit(el.id)">
+            {{ el.min}}
+          </td>
+          <td *ngIf="el.id === EditRowId">
+            <input type="text" [(ngModel)]="el.perbedaan" />
+          </td>
+          <td *ngIf="el.id !== EditRowId" (click)="Edit(el.id)">
+            {{ el.perbedaan}}
+          </td>
+
+          <button class="updateButton" (click)="updateItem(el.id, el.min, el.max )">
+            Update
+          </button>
+          &nbsp;
+          <button class="deleteButton" (click)="deleteItem(el.id)">
+            Delete
+          </button>
+          &nbsp;
+        </tr>
+
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add Index Berat Badan</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control"  [(ngModel)]="this.max" type="text" placeholder="max" name="dp" >
+                  
+                </div>
+              </div>
+            </form>
+
+            <form>
+              <div class="form-group">
+                <label for="dateOfBirth"></label>
+                <div class="input-group">
+                  <input  class="form-control" [(ngModel)]="this.min"  placeholder="min" name="dp" >
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="save(this.max,this.min)">Save</button>
+          </div>
+        </ng-template>        
+      </tbody>
+    </table>
+
+   
+  </mat-card>
+  <div>
+    <h1>Total Average</h1>
+    <h3>total average min:{{average2.averageMin}}</h3>
+    <h3>total average max:{{average2.averageMax}}</h3>
+    <h3>total average perbedaan:{{average2.averagePerbedaan}}</h3>
+
+  </div>
+</div>
+
